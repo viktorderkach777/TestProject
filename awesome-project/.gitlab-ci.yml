@@ -1,0 +1,55 @@
+variables: 
+  Category: 'all'
+
+stages:
+  - testing_dev
+  - testing
+  - logs
+#only for dev branch
+Running Tests (dev branch):     #Name of job
+  stage: testing_dev            #Name of stage
+  script:                       #Bash commands
+  - dotnet restore            
+  - dotnet test
+  tags: 
+    - my-ubuntu                 #my-ubuntu it's a tag of Azure VM
+  only:
+    - dev                       #Name of branch execute
+#general(first)
+Running Tests:                                
+  stage: testing
+  script:
+  - dotnet restore
+  - dotnet test
+  when: manual                  #optional execute
+  tags: 
+    - my-ubuntu
+  except:
+    - master
+    - dev
+#test by category
+Running Tests by Category:                 
+  stage: testing
+  script:
+  - dotnet restore
+  - dotnet test --filter TestCategory=$Category          
+  when: manual
+  tags: 
+    - my-ubuntu
+  except:
+    - master
+
+gather_logs:
+  stage: logs
+  script:
+  - docker logs selenoid &> Selenoid_logs.log
+  - docker logs selenoid &> logs_today_temp.log && cat logs_today_temp.log | grep ""$(date ""+%Y/%m/%d"")"" > Selenoid_logs_today.log
+  - tar -cf Session_logs.tar /home/gitlab-runner/selenoid/logs
+  artifacts:
+     paths:
+     - Selenoid_logs.log
+     - Selenoid_logs_today.log
+     - Session_logs.tar
+  when: manual
+  tags: 
+    - my-ubuntu
