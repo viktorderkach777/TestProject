@@ -12,10 +12,10 @@ namespace FluxDayAutomation.UITests
     [TestFixture(MANAGER_EMAIL, MANAGER_PASSWORD, MANAGER_USER_NAME, SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V2)]
     [TestFixture(MANAGER_EMAIL, MANAGER_PASSWORD, MANAGER_USER_NAME, SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V1)]
     [TestFixture(MANAGER_EMAIL, MANAGER_PASSWORD, MANAGER_USER_NAME, SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V2)]
-    [TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V1)]
-    [TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V2)]
-    [TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V1)]
-    [TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V2)]
+   // [TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V1)]
+    //[TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V2)]
+    //[TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V1)]
+    //[TestFixture(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, EMPLOYEE_USER_NAME, SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V2)]
     public class LoginUITest
     {
         private IWebDriver driver = null;
