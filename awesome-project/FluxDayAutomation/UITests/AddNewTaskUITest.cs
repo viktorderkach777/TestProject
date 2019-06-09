@@ -11,9 +11,9 @@ using System.Threading;
 
 namespace FluxDayAutomation.UITests
 {
-    //[TestFixture(SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V1)]
+    [TestFixture(SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V1)]
     [TestFixture(SelenoidDrivers.CHROME, SelenoidDrivers.CHROME_V2)]
-    [TestFixture(SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V1)]
+    //[TestFixture(SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V1)]
     //[TestFixture(SelenoidDrivers.FIREFOX, SelenoidDrivers.FIREFOX_V2)]
     [Category("AddNewTask")]
     public class AddNewTaskUiTest
