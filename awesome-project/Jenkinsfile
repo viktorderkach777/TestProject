@@ -1,4 +1,11 @@
 node {
+	properties(
+                 [parameters(
+                            [string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')]
+                            )
+                  ]
+                  ) 
+	
     stage 'Checkout'
 		checkout scm
     
@@ -14,7 +21,7 @@ node {
                sh "pwd"
                sh 'dotnet --info'
                sh 'dotnet restore'
-	       sh 'dotnet test --filter TestCategory=$TestCategory'
+	       echo "Hello ${params.TestCategory}"
              }
 	}
     }
