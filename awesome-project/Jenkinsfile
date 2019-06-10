@@ -5,6 +5,7 @@ node {
             sh 'ls -la'
         } else {
             echo 'I execute elsewhere'
+             sh 'ls -la'
         }
     }
 }
