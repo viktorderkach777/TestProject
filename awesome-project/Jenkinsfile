@@ -9,6 +9,13 @@ node {
         } else {
             echo 'I execute elsewhere'
              sh 'ls -la'
+             dir("awesome-project") {
+               sh "ls -la"
+               sh "pwd"
+               sh 'dotnet --info'
+               sh 'dotnet restore'
+             }
+
         }
     }
 }
