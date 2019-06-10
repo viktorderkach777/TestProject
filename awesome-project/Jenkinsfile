@@ -14,8 +14,8 @@ node {
                sh "pwd"
                sh 'dotnet --info'
                sh 'dotnet restore'
+	       sh 'dotnet test --filter TestCategory=$TestCategory'
              }
-
-        }
+	}
     }
 }
