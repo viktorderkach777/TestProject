@@ -1,9 +1,35 @@
 node {
-    stage('Example') {
+	properties(
+                 [parameters(
+                            [string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')]
+                            )
+                  ]
+                  ) 
+	
+    stage 'Checkout'
+		checkout scm
+    
+    stage('Test') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
+            sh 'ls -la'
+		dir("awesome-project") {
+               sh "ls -la"
+               sh "pwd"
+               sh 'dotnet --info'
+               sh 'dotnet restore'
+	       echo "Hello without params"
+             }
         } else {
             echo 'I execute elsewhere'
-        }
+             sh 'ls -la'
+             dir("awesome-project") {
+               sh "ls -la"
+               sh "pwd"
+               sh 'dotnet --info'
+               sh 'dotnet restore'
+	       echo "Hello ${params.TestCategory}"
+             }
+	}
     }
 }
