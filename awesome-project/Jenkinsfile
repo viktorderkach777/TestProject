@@ -1,35 +1,45 @@
-pipeline {
- agent any
- environment {
-  dotnet = '/usr/share/dotnet/dotnet'
- }
- stages {
-  stage('Checkout') {
-   steps {
-    git credentialsId: 'viktorderkach777', url: 'https://github.com/viktorderkach777/TestProject.git', branch: 'master'
-   }
-  }
-  stage('Restore Packages') {
- steps {
-  dir("awesome-project") {
-      sh "ls -la"
-      sh "pwd"
-      sh 'dotnet --info'
-      sh 'dotnet restore'
-}
- }
-}
- stage('DotNet Test') {
- steps {
-  dir("awesome-project") {
-      sh "ls -la"
-      sh "pwd"
-      sh 'dotnet --info'
-      sh 'dotnet test --filter TestCategory=$TestCategory'
-}
- }
+node {
+    stage('Example') {
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
+        }
+    }
 }
 
+#pipeline {
+ #agent any
+ #environment {
+  #dotnet = '/usr/share/dotnet/dotnet'
+ #}
+ #stages {
+  #stage('Checkout') {
+   #steps {
+    #git credentialsId: 'viktorderkach777', url: 'https://github.com/viktorderkach777/TestProject.git', branch: 'master'
+   #}
+  #}
+  #stage('Restore Packages') {
+ #steps {
+  #dir("awesome-project") {
+   #   sh "ls -la"
+    #  sh "pwd"
+     # sh 'dotnet --info'
+      #sh 'dotnet restore'
+#}
+ #}
+#}
+ #stage('DotNet Test') {
+ #steps {
+  #dir("awesome-project") {
+   #   sh "ls -la"
+    #  sh "pwd"
+     # sh 'dotnet --info'
+      #sh 'dotnet test --filter TestCategory=$TestCategory'
+#}
+ #}
+#}
 
- }
-}
+
+ #}
+#}
