@@ -7,39 +7,3 @@ node {
         }
     }
 }
-
-#pipeline {
- #agent any
- #environment {
-  #dotnet = '/usr/share/dotnet/dotnet'
- #}
- #stages {
-  #stage('Checkout') {
-   #steps {
-    #git credentialsId: 'viktorderkach777', url: 'https://github.com/viktorderkach777/TestProject.git', branch: 'master'
-   #}
-  #}
-  #stage('Restore Packages') {
- #steps {
-  #dir("awesome-project") {
-   #   sh "ls -la"
-    #  sh "pwd"
-     # sh 'dotnet --info'
-      #sh 'dotnet restore'
-#}
- #}
-#}
- #stage('DotNet Test') {
- #steps {
-  #dir("awesome-project") {
-   #   sh "ls -la"
-    #  sh "pwd"
-     # sh 'dotnet --info'
-      #sh 'dotnet test --filter TestCategory=$TestCategory'
-#}
- #}
-#}
-
-
- #}
-#}
