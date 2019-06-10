@@ -2,6 +2,7 @@ node {
     stage('Example') {
         if (env.BRANCH_NAME == 'master') {
             echo 'I only execute on the master branch'
+            sh 'ls -la'
         } else {
             echo 'I execute elsewhere'
         }
