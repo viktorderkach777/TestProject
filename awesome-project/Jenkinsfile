@@ -1,4 +1,4 @@
-node ('ubuntu'){
+node (ubuntu){
 	properties(
                  [parameters(
                             [string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')]
