@@ -1,4 +1,4 @@
-node {
+node ('selenoid'){
 	properties(
                  [parameters(
                             [string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')]
