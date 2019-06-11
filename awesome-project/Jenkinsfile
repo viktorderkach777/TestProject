@@ -18,7 +18,7 @@ node {
                sh "pwd"
                sh 'dotnet --info'
                sh 'dotnet restore'
-	       echo "Hello without params"
+	       sh 'dotnet test'
              }
         } else {
             echo 'I execute elsewhere'
@@ -28,7 +28,7 @@ node {
                sh "pwd"
                sh 'dotnet --info'
                sh 'dotnet restore'
-	       echo "Hello ${params.TestCategory}"
+	       sh "dotnet test --filter TestCategory=${params.TestCategory}"
              }
 	}
     }
