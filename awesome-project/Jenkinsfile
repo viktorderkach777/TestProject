@@ -18,7 +18,8 @@ node {
                sh "pwd"
                sh 'dotnet --info'
                sh 'dotnet restore'
-	       echo "Hello without params"
+	       sh 'hostname'
+	       sh "dotnet test"
              }
         } else {
             echo 'I execute elsewhere'
@@ -26,9 +27,10 @@ node {
              dir("awesome-project") {
                sh "ls -la"
                sh "pwd"
+	       sh 'hostname'
                sh 'dotnet --info'
                sh 'dotnet restore'
-	       echo "Hello ${params.TestCategory}"
+	       sh "dotnet test --filter TestCategory=${params.TestCategory}"
              }
 	}
     }
