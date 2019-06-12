@@ -6,8 +6,10 @@ node ('SelenoidNode'){
                   ]
                   ) 
 	
-    stage 'Checkout'
+	stage 'Checkout'{
 		checkout scm
+		 sh 'hostname'
+	}
     
     stage('Test') {
         if (env.BRANCH_NAME == 'master') {
