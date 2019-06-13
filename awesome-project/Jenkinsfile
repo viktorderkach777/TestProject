@@ -7,15 +7,13 @@ node {
                   ) 
 	
     stage('Check pull request target') {
-            when { changeRequest() }
-            steps {
-                script {
+	    if (changeRequest()) {
+            
                     if (env.CHANGE_TARGET == 'master') {
                         throw "This pull request targets the wrong branch. Please reopen the pull request targetting the dev branch."
                     }
                 }
-            }
-        }
+    }
 
     stage 'Checkout'
 		checkout scm
