@@ -7,9 +7,11 @@ node {
                   ) 
 	
     stage('Check pull request target') {
+	     echo '00'
 	    if (changeRequest()) {
-            
+            echo '11'
                     if (env.CHANGE_TARGET == 'master') {
+                     echo '22'
                         throw "This pull request targets the wrong branch. Please reopen the pull request targetting the dev branch."
                     }
                 }
