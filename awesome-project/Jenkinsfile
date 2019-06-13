@@ -3,7 +3,7 @@ pipeline {
 
 agent any 
   parameters {
-        string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')
+        string(name: 'TestCategory', defaultValue: 'Login', description: 'Enter the testcategory')
     }
 
 environment {
@@ -56,7 +56,7 @@ sh "pwd"
 
 sh 'dotnet --info'
 
-  echo "${TestCategory}"
+  echo "${params.TestCategory}"
 
 }
 
