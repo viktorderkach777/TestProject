@@ -53,7 +53,7 @@ sh "pwd"
 
 sh 'dotnet --info'
 
-sh 'dotnet test --filter TestCategory=$TestCategory'
+  echo "${TestCategory}"
 
 }
 
