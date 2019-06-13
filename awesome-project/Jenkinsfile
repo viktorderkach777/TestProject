@@ -15,7 +15,7 @@ stage('Checkout') {
 
 steps {
 
-git credentialsId: 'viktorderkach777', url: 'https://github.com/viktorderkach777/TestProject.git', branch: 'master'
+checkout scm
 
 }
 
