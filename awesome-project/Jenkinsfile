@@ -57,6 +57,7 @@ sh "pwd"
 sh 'dotnet --info'
 
   echo "${params.TestCategory}"
+  echo "HELLO ${CHANGE_TARGET}"
 
 }
 
