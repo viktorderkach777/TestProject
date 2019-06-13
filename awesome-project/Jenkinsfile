@@ -70,7 +70,7 @@ stage('Example Deploy') {
                 triggeredBy 'SCMTrigger'
             }
             steps {
-                echo '============SCMTrigger==========================='
+                echo "============SCMTrigger==========================="
             }
         }
 
