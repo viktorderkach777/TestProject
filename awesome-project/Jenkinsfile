@@ -13,6 +13,15 @@ dotnet = '/usr/share/dotnet/dotnet'
 }
 
 stages {
+  
+  stage('Example Deploy') {
+            when {
+                triggeredBy 'SCMTrigger'
+            }
+            steps {
+                echo '============SCMTrigger==========================='
+            }
+        }
 
 stage('Checkout') {
 
