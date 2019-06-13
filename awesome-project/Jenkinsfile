@@ -1,44 +1,83 @@
-node {
-	properties(
-                 [parameters(
-                            [string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')]
-                            )
-                  ]
-                  ) 
-	
-    stage('Check pull request target') {
-	    if (changeRequest()) {
-            
-                    if (env.CHANGE_TARGET == 'master') {
-                        throw "This pull request targets the wrong branch. Please reopen the pull request targetting the dev branch."
-                    }
-                }
+pipeline {
+
+
+agent { 
+        node {
+            label 'ubuntu'             
+        }
     }
 
-    stage 'Checkout'
-		checkout scm
-	
-    stage('Test') {
-        if (env.BRANCH_NAME == 'master') {
-            echo 'I only execute on the master branch'
-            sh 'ls -la'
-		dir("awesome-project") {
-               sh "ls -la"
-               sh "pwd"
-               sh 'dotnet --info'
-               sh 'dotnet restore'
-	       sh 'dotnet test'
-             }
-        } else {
-            echo 'I execute elsewhere'
-             sh 'ls -la'
-             dir("awesome-project") {
-               sh "ls -la"
-               sh "pwd"
-               sh 'dotnet --info'
-               sh 'dotnet restore'
-	       sh "dotnet test --filter TestCategory=${params.TestCategory}"
-             }
-	}
-    }
+environment {
+
+dotnet = '/usr/share/dotnet/dotnet'
+
 }
+
+stages {
+
+stage('Checkout') {
+
+steps {
+
+git credentialsId: 'viktorderkach777', url: 'https://github.com/viktorderkach777/TestProject.git', branch: 'master'
+
+}
+
+}
+
+stage('Restore Packages') {
+
+steps {
+
+dir("awesome-project") {
+
+sh "ls -la"
+
+sh "pwd"
+
+sh 'dotnet --info'
+
+sh 'dotnet restore'
+
+}
+
+}
+
+}
+
+stage('DotNet Test') {
+
+steps {
+
+dir("awesome-project") {
+
+sh "ls -la"
+
+sh "pwd"
+
+sh 'dotnet --info'
+
+sh 'dotnet test --filter TestCategory=$TestCategory'
+
+}
+
+}
+
+}
+
+
+
+
+
+}
+
+}
+
+
+
+
+
+
+
+
+
