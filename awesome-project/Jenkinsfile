@@ -1,7 +1,10 @@
 pipeline {
 
 
-agent any
+agent any 
+  parameters {
+        string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')
+    }
 
 environment {
 
