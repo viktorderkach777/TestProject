@@ -59,7 +59,7 @@ sh "pwd"
   script {
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-               act3 = act2.toString().length()
+               act3 = act2.toString().equals("[]");
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
@@ -70,6 +70,7 @@ sh 'dotnet --info'
    echo "${act}" 
    echo "${act2}" 
    echo "${act3}" 
+  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
 }
 
 }
