@@ -63,7 +63,7 @@ sh "pwd"
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
                isTriggeredByGit = act2.toString().equals("[]")
-               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length().equals("0")
+               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
