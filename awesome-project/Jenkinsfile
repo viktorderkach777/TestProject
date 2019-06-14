@@ -30,7 +30,10 @@ node ('SelenoidNode'){
 	       sh 'hostname'
                sh 'dotnet --info'
                sh 'dotnet restore'
-	       sh "dotnet test --filter TestCategory=${params.TestCategory}"
+	       //sh "dotnet test --filter TestCategory=${params.TestCategory}"
+	       echo "${params.TestCategory}"  
+               echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
+               echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
              }
 	}
     }
