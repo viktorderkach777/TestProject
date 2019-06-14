@@ -8,6 +8,8 @@ agent any
 
 environment {
 act = 'mmmmmmm'
+act2 = 'act2'
+act3 = 'act3'
 dotnet = '/usr/share/dotnet/dotnet'
 
 }
@@ -56,6 +58,7 @@ sh "ls -la"
 sh "pwd"
   script {
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
+               act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
@@ -64,6 +67,8 @@ sh 'dotnet --info'
 
   echo "${params.TestCategory}" 
    echo "${act}" 
+   echo "${act2}" 
+   echo "${act3}" 
 }
 
 }
