@@ -7,7 +7,7 @@ agent any
     }
 
 environment {
-
+act = ''
 dotnet = '/usr/share/dotnet/dotnet'
 
 }
@@ -54,9 +54,12 @@ dir("awesome-project") {
 sh "ls -la"
 
 sh "pwd"
+  script {
+               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+          }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
-def specificCause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+
 sh 'dotnet --info'
 
   echo "${params.TestCategory}" 
