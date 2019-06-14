@@ -27,10 +27,12 @@ steps {
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
                isTriggeredByGit = act2.toString().equals("[]")
                isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
-          }
-    
+          }    
   
        checkout scm
+       echo "TestCategory = ${params.TestCategory}"       
+       echo "isTriggeredByGit = ${isTriggeredByGit}"      
+       echo "isTestCategoryLengthEqualsNull = ${isTestCategoryLengthEqualsNull}"
         }
   }
 
@@ -71,12 +73,7 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
 
 //sh 'dotnet --info'
 
-  echo "${params.TestCategory}" 
-   echo "${act}" 
-   echo "${act2}" 
-   echo "isTriggeredByGit = ${isTriggeredByGit}" 
-  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
-  echo "isTestCategoryLengthEqualsNull = ${isTestCategoryLengthEqualsNull}"
+ 
 }
 
 }
