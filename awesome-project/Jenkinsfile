@@ -56,29 +56,17 @@ sh "pwd"
 
 }
 
-stage('DotNet Test') {
+stage('Info') {
 
-steps {
-
+           steps { 
  
- 
-dir("awesome-project") {
+            dir("awesome-project") {
+                sh "ls -la"
+                sh "pwd" 
+                                   }
 
-sh "ls -la"
-
-sh "pwd"
- 
-echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
-echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
-
-//sh 'dotnet --info'
-
- 
-}
-
-}
-
-}  
+                  }
+               }  
  
   
   stage('NotMasterNotDevNotGitNotParam') {
@@ -89,6 +77,11 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
             }
        steps {
                 echo '----NotMasterNotDevNotGitNotParam-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh 'dotnet test'
+                 }
+                
             }
    }
  stage('NotMasterNotDevNotGitParam') {
@@ -99,6 +92,10 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
             }
        steps {
                 echo '----NotMasterNotDevNotGitParam-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh 'dotnet test'
+                 }
             }
    }
  stage('NotMasterNotDevGit') {
