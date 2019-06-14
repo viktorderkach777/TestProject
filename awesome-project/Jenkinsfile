@@ -11,6 +11,7 @@ act = 'mmmmmmm'
 act2 = 'act2'
 act3 = 'act3'
 dotnet = '/usr/share/dotnet/dotnet'
+length='length'
 
 }
 
@@ -60,6 +61,7 @@ sh "pwd"
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
                act3 = act2.toString().equals("[]");
+               length = (params.TestCategory).length()
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
