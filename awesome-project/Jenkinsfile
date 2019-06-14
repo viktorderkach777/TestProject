@@ -19,8 +19,7 @@ stage('Checkout') {
 steps {
 
 checkout scm
- echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
-  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
+
 
 }
 
@@ -55,12 +54,11 @@ dir("awesome-project") {
 sh "ls -la"
 
 sh "pwd"
-
+echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
+echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
 sh 'dotnet --info'
 
-  echo "${params.TestCategory}"  
-  echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
-  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
+  echo "${params.TestCategory}" 
 }
 
 }
