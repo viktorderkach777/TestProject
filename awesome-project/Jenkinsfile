@@ -22,13 +22,17 @@ stages {
 stage('Checkout') {
 
 steps {
+  script {
+               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
+               act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+               isTriggeredByGit = act2.toString().equals("[]")
+               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
+          }
 
-checkout scm
+   checkout scm
 
-
-}
-
-}
+        }
+  }
 
 stage('Restore Packages') {
 
@@ -54,12 +58,7 @@ stage('DotNet Test') {
 
 steps {
 
-  script {
-               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
-               act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-               isTriggeredByGit = act2.toString().equals("[]")
-               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
-          }
+ 
  
 dir("awesome-project") {
 
