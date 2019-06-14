@@ -83,16 +83,68 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
 }  
  
   
-  stage('MasterDevNotGitNotParam') {
+  stage('NotMasterNotDevNotGitNotParam') {
 
        when {               
                 //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
                 expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
             }
        steps {
-                echo '----User2Feater1-----'
+                echo '----NotMasterNotDevNotGitNotParam-----'
             }
    }
+ stage('NotMasterNotDevNotGitParam') {
+
+       when {               
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
+            }
+       steps {
+                echo '----NotMasterNotDevNotGitParam-----'
+            }
+   }
+ stage('NotMasterNotDevGit') {
+
+       when {               
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return isTriggeredByGit == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
+            }
+       steps {
+                echo '----NotMasterNotDevGit-----'
+            }
+   }
+ stage('MasterDevGit') {
+
+       when {               
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
+            }
+       steps {
+                echo '----MasterDevGit-----'
+            }
+   }
+  stage('MasterDevNotGitNoParam') {
+
+       when {               
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
+            }
+       steps {
+                echo '----MasterDevNotGitNoParam-----'
+            }
+   }
+  stage('MasterDevNotGitParam') {
+
+       when {               
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
+            }
+       steps {
+                echo '----MasterDevNotGitParam-----'
+            }
+   }
+
+
 
 stage('Example Deploy') {
             when {
