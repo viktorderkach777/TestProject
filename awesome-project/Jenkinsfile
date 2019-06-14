@@ -40,9 +40,9 @@ sh "ls -la"
 
 sh "pwd"
 
-sh 'dotnet --info'
+//sh 'dotnet --info'
 
-sh 'dotnet restore'
+//sh 'dotnet restore'
 
 }
 
@@ -68,7 +68,7 @@ sh "pwd"
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
 
-sh 'dotnet --info'
+//sh 'dotnet --info'
 
   echo "${params.TestCategory}" 
    echo "${act}" 
@@ -86,7 +86,7 @@ sh 'dotnet --info'
   stage('User2Feater1') {
 
        when {               
-                expression { return env.BRANCH_NAME != 'master' }
+                expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
             }
        steps {
                 echo '----User2Feater1-----'
