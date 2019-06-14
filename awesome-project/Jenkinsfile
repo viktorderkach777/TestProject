@@ -59,6 +59,7 @@ sh "pwd"
   script {
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+               act3 = act2.lenght()
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
