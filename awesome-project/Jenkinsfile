@@ -1,20 +1,17 @@
 
  
 pipeline {
-
-
-agent any 
+  agent any 
+ 
   parameters {
         string(name: 'TestCategory', defaultValue: '', description: 'Enter the testcategory')
     }
 
 environment {
-
-act2 = 'act2'
-isTriggeredByGit = ''
-dotnet = '/usr/share/dotnet/dotnet'
-isTestCategoryLengthEqualsNull=''
-
+ 
+      isTriggeredByGit = ''
+      dotnet = '/usr/share/dotnet/dotnet'
+      isTestCategoryLengthEqualsNull=''
 }
 
 stages {  
@@ -22,8 +19,7 @@ stages {
 stage('Checkout') {
 
 steps {
-  script {
-               act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+  script {     
                isTriggeredByGit = (currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')).toString().equals("[]")
                isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
           }    
@@ -55,7 +51,6 @@ stage('Info') {
                    }
                   }
                }  
- 
   
   stage('NotParam') {
 
@@ -67,8 +62,7 @@ stage('Info') {
                 dir("awesome-project") {
                      sh 'dotnet restore'
                      sh 'dotnet test'
-                 }
-                
+                 }                
             }
    }
  stage('Param') {
@@ -92,8 +86,6 @@ stage('Info') {
        steps {
                 echo '----NotMasterNotDevGit-----'
             }
-   }
- 
+   } 
 }
-
 }
