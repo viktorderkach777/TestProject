@@ -6,7 +6,7 @@ node ('SelenoidNode'){
                   ]
                   ) 
 	
-	stage('Checkout'){
+	stage('Checkout'){		
 		checkout scm
 	}
     
