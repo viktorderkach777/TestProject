@@ -9,9 +9,9 @@ agent any
 environment {
 act = 'mmmmmmm'
 act2 = 'act2'
-act3 = 'act3'
+isTriggeredByGit = ''
 dotnet = '/usr/share/dotnet/dotnet'
-length='length'
+testCategoryLength=''
 
 }
 
@@ -60,8 +60,8 @@ sh "pwd"
   script {
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-               act3 = act2.toString().equals("[]")
-               length = (params.TestCategory).trim().length()
+               isTriggeredByGit = act2.toString().equals("[]")
+               testCategoryLength = (params.TestCategory).trim().length()
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
@@ -71,9 +71,9 @@ sh 'dotnet --info'
   echo "${params.TestCategory}" 
    echo "${act}" 
    echo "${act2}" 
-   echo "${act3}" 
+   echo "isTriggeredByGit = ${isTriggeredByGit}" 
   echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
-  echo "${length}"
+  echo "testCategoryLength = ${testCategoryLength}"
 }
 
 }
