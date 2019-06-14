@@ -9,7 +9,7 @@ agent any
     }
 
 environment {
-act = 'mmmmmmm'
+
 act2 = 'act2'
 isTriggeredByGit = ''
 dotnet = '/usr/share/dotnet/dotnet'
@@ -23,9 +23,8 @@ stage('Checkout') {
 
 steps {
   script {
-               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-               isTriggeredByGit = act2.toString().equals("[]")
+               isTriggeredByGit = (currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')).toString().equals("[]")
                isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
           }    
   
@@ -38,23 +37,13 @@ steps {
 
 stage('Restore Packages') {
 
-steps {
-
-dir("awesome-project") {
-
-sh "ls -la"
-
-sh "pwd"
-
-//sh 'dotnet --info'
-
-//sh 'dotnet restore'
-
-}
-
-}
-
-}
+   steps {
+     dir("awesome-project") {
+     sh "ls -la"
+     sh "pwd"
+      }
+      }
+    }
 
 stage('Info') {
 
