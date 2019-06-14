@@ -23,6 +23,8 @@ stage('Checkout') {
 steps {
 
 checkout scm
+ echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
+  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
 
 }
 
@@ -61,8 +63,7 @@ sh "pwd"
 sh 'dotnet --info'
 
   echo "${params.TestCategory}"  
-  echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}" 
-  echo "${currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause')}" 
+  echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
   echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
 }
 
