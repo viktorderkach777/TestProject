@@ -29,16 +29,6 @@ steps {
         }
   }
 
-stage('Restore Packages') {
-
-   steps {
-     dir("awesome-project") {
-     sh "ls -la"
-     sh "pwd"
-      }
-      }
-    }
-
 stage('Info') {
 
            steps { 
@@ -50,7 +40,7 @@ stage('Info') {
                   }
                }  
   
-  stage('NotParam') {
+  stage('Test without Category') {
 
        when {         
                 expression { return (isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true) || (isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev'))}
@@ -63,7 +53,7 @@ stage('Info') {
                  }                
             }
    }
- stage('Param') {
+ stage('Test with Category') {
 
        when {         
                 expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false}
