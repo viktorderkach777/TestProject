@@ -6,8 +6,9 @@ node ('SelenoidNode'){
                   ]
                   ) 
 	
-    stage 'Checkout'
+	stage('Checkout'){
 		checkout scm
+	}
     
     stage('Test') {
         if (env.BRANCH_NAME == 'master') {
