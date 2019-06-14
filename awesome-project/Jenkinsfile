@@ -7,7 +7,7 @@ agent any
     }
 
 environment {
-act = ''
+act = '111'
 dotnet = '/usr/share/dotnet/dotnet'
 
 }
@@ -63,6 +63,7 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
 sh 'dotnet --info'
 
   echo "${params.TestCategory}" 
+   echo "${act}" 
 }
 
 }
