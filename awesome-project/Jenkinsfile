@@ -80,6 +80,16 @@ sh 'dotnet --info'
 
 }  
  
+  
+  stage('User2Feater1') {
+
+       when {
+                branch 'User2Feater1'
+            }
+       steps {
+                echo 'User2Feater1'
+            }
+   }
 
 stage('Example Deploy') {
             when {
