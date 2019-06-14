@@ -1,39 +1,89 @@
-node ('SelenoidNode'){
-	properties(
-                 [parameters(
-                            [string(defaultValue: 'Login', name: 'TestCategory', description: 'Enter the testcategory')]
-                            )
-                  ]
-                  ) 
-	
-	stage('Checkout'){		
-	    checkout scm
-	}
-    
-    stage('Test') {
-        if (env.BRANCH_NAME == 'master') {
-            echo 'I only execute on the master branch'
-            sh 'ls -la'
-		dir("awesome-project") {
-               sh "ls -la"
-               sh "pwd"
-               sh 'dotnet --info'
-               sh 'dotnet restore'
-	       sh 'hostname'
-	       sh "dotnet test"
-             }
-        } else {
-            echo 'I execute elsewhere'
-             sh 'ls -la'
-             dir("awesome-project") {
-               sh "ls -la"
-               sh "pwd"
-	       sh 'hostname'
-               sh 'dotnet --info'
-               sh 'dotnet restore'
-	       //sh "dotnet test --filter TestCategory=${params.TestCategory}"
-	       echo "${params.TestCategory}"           
-             }
-	}
+pipeline {
+  agent any 
+ 
+  parameters {
+        string(name: 'TestCategory', defaultValue: '', description: 'Enter the testcategory')
     }
+
+environment {
+ 
+      isTriggeredByGit = ''
+      dotnet = '/usr/share/dotnet/dotnet'
+      isTestCategoryLengthEqualsNull=''
+}
+
+stages {  
+
+stage('Checkout') {
+
+steps {
+  script {     
+               isTriggeredByGit = (currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')).toString().equals("[]")
+               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
+          }    
+  
+       checkout scm
+       echo "TestCategory = ${params.TestCategory}"       
+       echo "isTriggeredByGit = ${isTriggeredByGit}"      
+       echo "isTestCategoryLengthEqualsNull = ${isTestCategoryLengthEqualsNull}"
+        }
+  }
+
+stage('Restore Packages') {
+
+   steps {
+     dir("awesome-project") {
+     sh "ls -la"
+     sh "pwd"
+      }
+      }
+    }
+
+stage('Info') {
+
+           steps { 
+ 
+                  dir("awesome-project") {
+                      sh "ls -la"
+                      sh "pwd" 
+                   }
+                  }
+               }  
+  
+  stage('NotParam') {
+
+       when {         
+                expression { return (isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true) || (isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev'))}
+            }
+       steps {
+                echo '----NotMasterNotDevNotGitNotParam-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh 'dotnet test'
+                 }                
+            }
+   }
+ stage('Param') {
+
+       when {         
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false}
+            }
+       steps {
+                echo '----NotMasterNotDevNotGitParam-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh "dotnet test --filter TestCategory=${params.TestCategory}"
+                 }
+            }
+   }
+ stage('NotMasterNotDevGit') {
+
+       when {              
+                expression { return isTriggeredByGit == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
+            }
+       steps {
+                echo '----NotMasterNotDevGit-----'
+            }
+   } 
+}
 }
