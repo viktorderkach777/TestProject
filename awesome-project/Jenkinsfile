@@ -2,7 +2,6 @@
  
 pipeline {
 
-
 agent any 
   parameters {
         string(name: 'TestCategory', defaultValue: 'Login', description: 'Enter the testcategory')
