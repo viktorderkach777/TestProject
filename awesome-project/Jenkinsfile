@@ -86,7 +86,8 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
   stage('User2Feater1') {
 
        when {               
-                expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return isTriggeredByGit == 'false' && isTestCategoryLengthEqualsNull == 'true'}
             }
        steps {
                 echo '----User2Feater1-----'
