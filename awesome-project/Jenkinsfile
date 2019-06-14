@@ -86,7 +86,7 @@ sh 'dotnet --info'
   stage('User2Feater1') {
 
        when {               
-                expression { return branch 'User1Feature1' || branch 'dev' }
+                expression { return env.BRANCH_NAME != 'master' }
             }
        steps {
                 echo '----User2Feater1-----'
