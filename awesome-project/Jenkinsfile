@@ -19,9 +19,7 @@ stage('Checkout') {
 
 steps {
 
-checkout scm
- echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
-  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
+checkout scm 
 
 }
 
