@@ -65,6 +65,14 @@ sh 'dotnet --info'
 
 }
 
+  
+  stage('Operation without SCM'){      
+      steps{
+        mail (to: 'viktorderkach777@gmail.com',
+             subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
+            body: "Please go to ${env.BUILD_URL}.");
+      }
+   }
 
 stage('Example Deploy') {
             when {
