@@ -85,9 +85,10 @@ sh 'dotnet --info'
 
        when {
                 branch 'User2Feater1'
+                expression { return branch 'User2Feater1' || branch 'dev' }
             }
        steps {
-                echo 'User2Feater1'
+                echo '----User2Feater1-----'
             }
    }
 
