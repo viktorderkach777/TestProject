@@ -60,20 +60,18 @@ stage('Info') {
 
            steps { 
  
-            dir("awesome-project") {
-                sh "ls -la"
-                sh "pwd" 
-                                   }
-
+                  dir("awesome-project") {
+                      sh "ls -la"
+                      sh "pwd" 
+                   }
                   }
                }  
  
   
-  stage('NotMasterNotDevNotGitNotParam') {
+  stage('NotGitNotParam') {
 
-       when {               
-                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
-                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
+       when {         
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true}
             }
        steps {
                 echo '----NotMasterNotDevNotGitNotParam-----'
@@ -84,24 +82,22 @@ stage('Info') {
                 
             }
    }
- stage('NotMasterNotDevNotGitParam') {
+ stage('NotGitParam') {
 
-       when {               
-                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
-                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
+       when {         
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false}
             }
        steps {
                 echo '----NotMasterNotDevNotGitParam-----'
                 dir("awesome-project") {
                      sh 'dotnet restore'
-                     sh 'dotnet test'
+                     sh "dotnet test --filter TestCategory=${params.TestCategory}"
                  }
             }
    }
  stage('NotMasterNotDevGit') {
 
-       when {               
-                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+       when {              
                 expression { return isTriggeredByGit == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
             }
        steps {
@@ -110,38 +106,17 @@ stage('Info') {
    }
  stage('MasterDevGit') {
 
-       when {               
-                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+       when {              
                 expression { return isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
             }
        steps {
                 echo '----MasterDevGit-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh 'dotnet test'
+                 }
             }
    }
-  stage('MasterDevNotGitNoParam') {
-
-       when {               
-                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
-                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
-            }
-       steps {
-                echo '----MasterDevNotGitNoParam-----'
-            }
-   }
-  stage('MasterDevNotGitParam') {
-
-       when {               
-                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
-                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
-            }
-       steps {
-                echo '----MasterDevNotGitParam-----'
-            }
-   }
-
-           
-
-
 }
 
 }
