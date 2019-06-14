@@ -28,8 +28,15 @@ steps {
                isTriggeredByGit = act2.toString().equals("[]")
                isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
           }
-
-   checkout scm
+    when {               
+                //expression { return env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev'}
+                expression { return (isTriggeredByGit == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')) == false}
+            }
+       steps {
+                echo '----GitforNotDevNotMaster-----'
+                checkout scm
+            }
+  
 
         }
   }
