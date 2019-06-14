@@ -7,7 +7,7 @@ agent any
     }
 
 environment {
-act = '111'
+act = 'true'
 dotnet = '/usr/share/dotnet/dotnet'
 
 }
@@ -55,7 +55,7 @@ sh "ls -la"
 
 sh "pwd"
   script {
-               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
