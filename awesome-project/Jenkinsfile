@@ -56,6 +56,7 @@ sh "ls -la"
 sh "pwd"
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
+def specificCause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
 sh 'dotnet --info'
 
   echo "${params.TestCategory}" 
