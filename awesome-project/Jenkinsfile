@@ -1,5 +1,5 @@
 
- def buildCauses = currentBuild.rawBuild.getCauses()
+ 
 
 
 pipeline {
@@ -61,8 +61,7 @@ sh "pwd"
 sh 'dotnet --info'
 
   echo "${params.TestCategory}"  
-  echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"
-  echo "${buildCauses}"
+  echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}" 
 }
 
 }
