@@ -54,17 +54,19 @@ stage('DotNet Test') {
 
 steps {
 
-dir("awesome-project") {
-
-sh "ls -la"
-
-sh "pwd"
   script {
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
                isTriggeredByGit = act2.toString().equals("[]")
                isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
           }
+ 
+dir("awesome-project") {
+
+sh "ls -la"
+
+sh "pwd"
+ 
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
 
@@ -144,16 +146,7 @@ echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
             }
    }
 
-
-
-stage('Example Deploy') {
-            when {
-                triggeredBy 'SCMTrigger'
-            }
-            steps {
-                echo "============SCMTrigger==========================="
-            }
-        }
+           
 
 
 }
