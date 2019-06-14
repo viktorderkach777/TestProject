@@ -68,10 +68,10 @@ stage('Info') {
                }  
  
   
-  stage('NotGitNotParam') {
+  stage('NotParam') {
 
        when {         
-                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true}
+                expression { return (isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true) || (isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev'))}
             }
        steps {
                 echo '----NotMasterNotDevNotGitNotParam-----'
@@ -82,7 +82,7 @@ stage('Info') {
                 
             }
    }
- stage('NotGitParam') {
+ stage('Param') {
 
        when {         
                 expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false}
@@ -104,19 +104,7 @@ stage('Info') {
                 echo '----NotMasterNotDevGit-----'
             }
    }
- stage('MasterDevGit') {
-
-       when {              
-                expression { return isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev')}
-            }
-       steps {
-                echo '----MasterDevGit-----'
-                dir("awesome-project") {
-                     sh 'dotnet restore'
-                     sh 'dotnet test'
-                 }
-            }
-   }
+ 
 }
 
 }
