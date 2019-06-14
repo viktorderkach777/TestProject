@@ -1,3 +1,6 @@
+def isStartedByUser = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause) != null
+
+
 pipeline {
 
 
@@ -57,7 +60,8 @@ sh "pwd"
 sh 'dotnet --info'
 
   echo "${params.TestCategory}"  
-echo "currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')"
+  echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"
+  echo "${isStartedByUser}"
 }
 
 }
