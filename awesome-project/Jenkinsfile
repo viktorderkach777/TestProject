@@ -60,8 +60,8 @@ sh "pwd"
   script {
                act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
                act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-               act3 = act2.toString().equals("[]");
-               length = (params.TestCategory).length()
+               act3 = act2.toString().equals("[]")
+               length = (params.TestCategory).trim().length()
           }
 echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
 echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
