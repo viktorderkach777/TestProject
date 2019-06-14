@@ -1,18 +1,15 @@
 pipeline {
-
-
-agent any 
+  agent any 
+ 
   parameters {
-        string(name: 'TestCategory', defaultValue: 'Login', description: 'Enter the testcategory')
+        string(name: 'TestCategory', defaultValue: '', description: 'Enter the testcategory')
     }
 
 environment {
-act = 'mmmmmmm'
-act2 = 'act2'
-isTriggeredByGit = ''
-dotnet = '/usr/share/dotnet/dotnet'
-isTestCategoryLengthEqualsNull=''
-
+ 
+      isTriggeredByGit = ''
+      dotnet = '/usr/share/dotnet/dotnet'
+      isTestCategoryLengthEqualsNull=''
 }
 
 stages {  
@@ -20,87 +17,73 @@ stages {
 stage('Checkout') {
 
 steps {
-
-checkout scm
-
-
-}
-
-}
+  script {     
+               isTriggeredByGit = (currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')).toString().equals("[]")
+               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length() == 0
+          }    
+  
+       checkout scm
+       echo "TestCategory = ${params.TestCategory}"       
+       echo "isTriggeredByGit = ${isTriggeredByGit}"      
+       echo "isTestCategoryLengthEqualsNull = ${isTestCategoryLengthEqualsNull}"
+        }
+  }
 
 stage('Restore Packages') {
 
-steps {
+   steps {
+     dir("awesome-project") {
+     sh "ls -la"
+     sh "pwd"
+      }
+      }
+    }
 
-dir("awesome-project") {
+stage('Info') {
 
-sh "ls -la"
-
-sh "pwd"
-
-sh 'dotnet --info'
-
-sh 'dotnet restore'
-
-}
-
-}
-
-}
-
-stage('DotNet Test') {
-
-steps {
-
-dir("awesome-project") {
-
-sh "ls -la"
-
-sh "pwd"
-  script {
-               act = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')!= null
-               act2 = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-               isTriggeredByGit = act2.toString().equals("[]")
-               isTestCategoryLengthEqualsNull = (params.TestCategory).trim().length().equals("0")
-          }
-echo "${currentBuild.getBuildCauses('jenkins.branch.BranchEventCause')}"   
-echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
-
-sh 'dotnet --info'
-
-  echo "${params.TestCategory}" 
-   echo "${act}" 
-   echo "${act2}" 
-   echo "isTriggeredByGit = ${isTriggeredByGit}" 
-  echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
-  echo "isTestCategoryLengthEqualsNull = ${isTestCategoryLengthEqualsNull}"
-}
-
-}
-
-}  
+           steps { 
  
+                  dir("awesome-project") {
+                      sh "ls -la"
+                      sh "pwd" 
+                   }
+                  }
+               }  
   
-  stage('User2Feater1') {
+  stage('NotParam') {
 
-       when {               
-                expression { return branch 'User2Feater1' || branch 'dev' }
+       when {         
+                expression { return (isTriggeredByGit == false && isTestCategoryLengthEqualsNull == true) || (isTriggeredByGit == true && (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'dev'))}
             }
        steps {
-                echo '----User2Feater1-----'
+                echo '----NotMasterNotDevNotGitNotParam-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh 'dotnet test'
+                 }                
             }
    }
+ stage('Param') {
 
-stage('Example Deploy') {
-            when {
-                triggeredBy 'SCMTrigger'
+       when {         
+                expression { return isTriggeredByGit == false && isTestCategoryLengthEqualsNull == false}
             }
-            steps {
-                echo "============SCMTrigger==========================="
+       steps {
+                echo '----NotMasterNotDevNotGitParam-----'
+                dir("awesome-project") {
+                     sh 'dotnet restore'
+                     sh "dotnet test --filter TestCategory=${params.TestCategory}"
+                 }
             }
-        }
+   }
+ stage('NotMasterNotDevGit') {
 
-
+       when {              
+                expression { return isTriggeredByGit == true && (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'dev')}
+            }
+       steps {
+                echo '----NotMasterNotDevGit-----'
+            }
+   } 
 }
-
 }
