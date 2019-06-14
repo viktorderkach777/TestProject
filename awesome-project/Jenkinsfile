@@ -73,6 +73,7 @@ sh 'dotnet --info'
    echo "${act2}" 
    echo "${act3}" 
   echo "${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}" 
+  echo "${length}"
 }
 
 }
