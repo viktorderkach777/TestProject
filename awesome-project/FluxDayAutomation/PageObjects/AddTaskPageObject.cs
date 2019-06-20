@@ -7,6 +7,7 @@ namespace FluxDayAutomation.PageObjects
 {
     public class AddTaskPageObject
     {
+
         private const string CREATE_TASK_BUTTON_CSS = "#new_task > div.small-12.columns.form-action-up > div.right > input";
         private const string CANCEL_LINK_CSS = "#new_task > div.small-12.columns.form-action-up > div.right > a";
         private const string TASK_NAME_ID = "task_name";
